@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Study Planner</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>🧠 AI Study Planner</h1>
+            <div class="nav-controls">
+                <button id="themeToggle">🌙</button>
+                <button id="exportBtn">📤 Export Plan</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <h1>Welcome to the AI-Powered Study Planner</h1>
+            <p>Plan your study sessions effectively with the help of AI. Get personalized study schedules, track your progress, and stay motivated!</p>
+            <div id="motivationalQuote"></div>
+        </section>
+
+        <section id="features">
+            <h2>🚀 Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Personalized Study Schedules</h3>
+                    <p>AI analyzes your learning style and creates optimal study times.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Progress Tracking</h3>
+                    <p>Monitor your advancement with detailed analytics and insights.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Motivational Reminders</h3>
+                    <p>Receive timely notifications to keep you on track.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Resource Recommendations</h3>
+                    <p>Get AI-suggested study materials tailored to your needs.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="planner">
+            <h2>📝 Create Your Study Plan</h2>
+            <form id="studyForm">
+                <div class="form-group">
+                    <label for="userName">Your Name:</label>
+                    <input type="text" id="userName" required>
+                </div>
+                <div class="form-group">
+                    <label for="studyGoal">Study Goal:</label>
+                    <select id="studyGoal" required>
+                        <option value="">Select a goal</option>
+                        <option value="exam">Prepare for Exam</option>
+                        <option value="skill">Learn New Skill</option>
+                        <option value="review">Review Material</option>
+                        <option value="project">Work on Project</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="subjects">Subjects/Areas:</label>
+                    <input type="text" id="subjects" placeholder="e.g., Math, Physics, Programming" required>
+                </div>
+                <div class="form-group">
+                    <label for="studyHours">Daily Study Hours:</label>
+                    <input type="number" id="studyHours" min="1" max="12" value="2" required>
+                </div>
+                <div class="form-group">
+                    <label for="difficulty">Difficulty Level:</label>
+                    <input type="range" id="difficulty" min="1" max="5" value="3">
+                    <span id="difficultyValue">3</span>
+                </div>
+                <button type="submit" id="generateBtn">Generate AI Study Plan</button>
+            </form>
+        </section>
+
+        <section id="dashboard" class="hidden">
+            <h2>📊 Your Study Dashboard</h2>
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3>Study Progress</h3>
+                    <div class="progress-bar">
+                        <div id="progressBar" class="progress-fill"></div>
+                    </div>
+                    <p id="progressText">0% Complete</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Study Streak</h3>
+                    <p id="streakCount">0 days</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Today's Goal</h3>
+                    <p id="todayGoal">No goal set</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>AI Recommendations</h3>
+                    <p id="aiRecommendation">Complete your study plan to get recommendations</p>
+                </div>
+            </div>
+            <div class="study-timer">
+                <h3>⏱️ Pomodoro Timer</h3>
+                <div id="timer">25:00</div>
+                <div class="timer-controls">
+                    <button id="startTimer">Start</button>
+                    <button id="pauseTimer">Pause</button>
+                    <button id="resetTimer">Reset</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="tasks">
+            <h2>✅ Task Management</h2>
+            <div class="task-form">
+                <input type="text" id="taskInput" placeholder="Enter a new study task..." maxlength="100">
+                <select id="taskPriority">
+                    <option value="low">Low Priority</option>
+                    <option value="medium" selected>Medium Priority</option>
+                    <option value="high">High Priority</option>
+                </select>
+                <button id="addTaskBtn">Add Task</button>
+            </div>
+            <div class="task-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="pending">Pending</button>
+                <button class="filter-btn" data-filter="completed">Completed</button>
+            </div>
+            <ul id="taskList"></ul>
+            <div class="task-stats">
+                <span id="totalTasks">0</span> total tasks,
+                <span id="completedTasks">0</span> completed
+            </div>
+        </section>
+
+        <section id="gamification">
+            <h2>🏆 Achievements & Progress</h2>
+            <div class="gamification-container">
+                <div class="points-card">
+                    <h3>Your Stats</h3>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Points:</span>
+                        <span class="stat-value" id="totalPoints">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Level:</span>
+                        <span class="stat-value level-badge" id="userLevel">🥚 Beginner</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Current Streak:</span>
+                        <span class="stat-value streak" id="streakDisplay">🔥 0 days</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar">
+                            <div id="levelProgress" class="progress-fill"></div>
+                        </div>
+                        <p id="progressText">0 / 500 XP to next level</p>
+                    </div>
+                </div>
+
+                <div class="badges-section">
+                    <h3>🎖️ Your Badges</h3>
+                    <div id="badgesContainer" class="badges-grid"></div>
+                </div>
+
+                <div class="rewards-section">
+                    <h3>🎁 Rewards Unlocked</h3>
+                    <div id="rewardsContainer" class="rewards-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="schedule">
+            <h2>📅 Your Study Schedule</h2>
+            <div id="scheduleContent">
+                <p>Generate a study plan to see your schedule here.</p>
+            </div>
+        </section>
+    </main>
+
+    <div id="contact">
+        <h2>📞 Contact Us</h2>
+        <p>Email: info@ai-study-planner.com</p>
+        <p>Phone: +91 9021641377</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 AI-Powered Study Planner. All rights reserved.</p>
+    </footer>
+
+    <script src="AI.js"></script>
+</body>
+</html>
