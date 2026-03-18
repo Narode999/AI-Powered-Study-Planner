@@ -307,12 +307,6 @@ function loadFromLocalStorage() {
     const planData = localStorage.getItem('studyPlanner_plan');
     const theme = localStorage.getItem('studyPlanner_theme');
     const savedTasks = localStorage.getItem('studyPlanner_tasks');
-    const savedGameStats = localStorage.getItem('studyPlanner_gameStats');
-
-    // Load game stats
-    if (savedGameStats) {
-        gameStats = JSON.parse(savedGameStats);
-    }
 
     if (savedTasks) {
         tasks = JSON.parse(savedTasks);
